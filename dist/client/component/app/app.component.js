@@ -13,8 +13,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-// import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
-var angular2_localstorage_1 = require("angular2-localstorage");
 // import { TestComponent } from '../';
 var service_1 = require("../../service");
 var AppComponent = (function () {
@@ -101,14 +99,6 @@ var AppComponent = (function () {
     };
     return AppComponent;
 }());
-__decorate([
-    angular2_localstorage_1.LocalStorage(),
-    __metadata("design:type", Object)
-], AppComponent.prototype, "dark", void 0);
-__decorate([
-    angular2_localstorage_1.LocalStorage(),
-    __metadata("design:type", Object)
-], AppComponent.prototype, "rtl", void 0);
 __decorate([
     core_1.ViewChild('body'),
     __metadata("design:type", Object)

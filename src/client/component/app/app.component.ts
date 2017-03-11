@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, HostListener, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 // import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
-import {LocalStorage, SessionStorage} from 'angular2-localstorage';
 
 import { MenuItemClass } from '../../class';
 // import { TestComponent } from '../';
@@ -13,8 +12,8 @@ import { MenuService, LoaderService, UserService, DialogService, NavigatorServic
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @LocalStorage() dark = false;
-  @LocalStorage() rtl = false;
+  dark = false;
+  rtl = false;
   isHome = false;
   leftPane = false;
   rightPane = false;
