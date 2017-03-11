@@ -1,0 +1,1 @@
+{"version":3,"file":"model.js","sourceRoot":"","sources":["../../../src/common/db/model.ts"],"names":[],"mappings":";AAGC,CAAC","sourcesContent":["export interface ModelDefinition {\r\n  _id?: string;\r\n  __v?: number;\r\n};"]}

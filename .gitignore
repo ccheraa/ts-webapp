@@ -11,4 +11,3 @@ testem.log
 /e2e/*.map
 .DS_Store
 Thumbs.db
-dist
