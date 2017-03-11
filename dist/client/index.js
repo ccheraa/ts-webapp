@@ -2,6 +2,8 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
+require("zone.js");
+require("reflect-metadata.js");
 __export(require("./db"));
 __export(require("./service"));
 __export(require("./component"));
