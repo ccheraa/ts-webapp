@@ -110,7 +110,7 @@ AppComponent = __decorate([
         styleUrls: ['./app.component.scss']
     }),
     __param(0, core_1.Inject(platform_browser_1.DOCUMENT)),
-    __metadata("design:paramtypes", [Document, service_1.MenuService, service_1.UserService, service_1.DialogService, service_1.LoaderService, service_1.NavigatorService])
+    __metadata("design:paramtypes", [Object, service_1.MenuService, service_1.UserService, service_1.DialogService, service_1.LoaderService, service_1.NavigatorService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

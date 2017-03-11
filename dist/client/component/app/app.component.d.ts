@@ -20,7 +20,7 @@ export declare class AppComponent implements OnInit {
     title: string;
     settings: MenuItemClass[];
     menu: MenuItemClass[];
-    constructor(document: Document, menuService: MenuService, userService: UserService, dialogService: DialogService, loaderService: LoaderService, navigator: NavigatorService);
+    constructor(document: any, menuService: MenuService, userService: UserService, dialogService: DialogService, loaderService: LoaderService, navigator: NavigatorService);
     body: any;
     ngOnInit(): void;
     onScroll(): void;

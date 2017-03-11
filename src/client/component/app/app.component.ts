@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     { text: 'Scans', icon: 'scanner', id: 'scans' },
   ];
   menu: MenuItemClass[] = [];
-  constructor(@Inject(DOCUMENT) private document: Document, private menuService: MenuService, private userService: UserService, private dialogService: DialogService, private loaderService: LoaderService, private navigator: NavigatorService) {}
+  constructor(@Inject(DOCUMENT) private document: any, private menuService: MenuService, private userService: UserService, private dialogService: DialogService, private loaderService: LoaderService, private navigator: NavigatorService) {}
   @ViewChild('body') body: any;
   ngOnInit() {
     this.loaderService.check().subscribe(loading => this.loading = loading);
