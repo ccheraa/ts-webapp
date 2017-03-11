@@ -1,1 +1,0 @@
-{"version":3,"file":"base.js","sourceRoot":"","sources":["../../../src/client/db/base.ts"],"names":[],"mappings":"","sourcesContent":["export interface Loader {\r\n  load(id: string);\r\n  unload(id: string);\r\n}"]}

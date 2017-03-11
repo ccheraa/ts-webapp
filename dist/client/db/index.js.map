@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/client/db/index.ts"],"names":[],"mappings":";;;;AACA,oCAA+B","sourcesContent":["export * from './base';\r\nexport * from './model-client';\r\n"]}

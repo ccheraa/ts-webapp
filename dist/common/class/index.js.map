@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/common/class/index.ts"],"names":[],"mappings":";;;;AAAA,uCAAkC;AAClC,iCAA4B","sourcesContent":["export * from './menu-item.class';\r\nexport * from './msg.class';\r\n"]}
