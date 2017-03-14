@@ -1,5 +1,5 @@
 {
-  "name": "@ts-webapp",
+  "name": "@ts-webapp/cli",
   "version": "0.3.0",
   "description": "A full webapp with back and front end using typescript + Angular + Angular Material",
   "scripts": {
