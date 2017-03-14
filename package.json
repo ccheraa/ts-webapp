@@ -1,6 +1,6 @@
 {
-  "name": "ts-webapp",
-  "version": "0.2.0",
+  "name": "@ts-webapp",
+  "version": "0.3.0",
   "description": "A full webapp with back and front end using typescript + Angular + Angular Material",
   "scripts": {
     "start": "ts-webapp",
