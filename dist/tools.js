@@ -1,70 +1,81 @@
 "use strict";
 var fs = require("fs");
 var rimraf = require("rimraf");
+var format = require("string-template");
+var path_1 = require("path");
 var chalk_1 = require("chalk");
-var Tools = (function () {
-    function Tools() {
-    }
-    Tools.createDir = function (dirname, callback) {
-        fs.mkdir(dirname, callback);
-    };
-    Tools.deleteDir = function (dirname, callback) {
-        rimraf(dirname, callback);
-    };
-    Tools.writeFile = function (filename, data, callback) {
-        fs.writeFile(filename, data, 'utf8', callback);
-    };
-    Tools.appendFile = function (filename, data, callback) {
-        fs.appendFile(filename, data, 'utf8', callback);
-    };
-    Tools.deleteFile = function (filename, callback) {
-        fs.unlink(filename, callback);
-    };
-    Tools.removeLine = function (filename, line, callback) {
-        Tools.replace(filename, [[new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), '']], callback);
-    };
-    Tools.removeLines = function (filename, lines, callback) {
-        Tools.replace(filename, lines.map(function (line) { return [new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), '']; }), callback);
-    };
-    Tools.addBefore = function (filename, anchor, line, callback) {
-        Tools.replace(filename, [
-            [new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), ''],
-            [anchor, line + '\n' + anchor]
-        ], function () { });
-    };
-    Tools.addBeforeMulti = function (filename, tags, callback) {
-        Tools.replace(filename, tags.map(function (tag) { return [
-            [new RegExp(tag[1].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), ''],
-            [tag[0], tag[1] + '\n' + tag[0]]
-        ]; }).reduce(function (tags, tag) { return [].concat(tags, tag); }), function () { });
-    };
-    Tools.error = function (err) {
-        console.log(chalk_1.red(err.message || err));
-    };
-    Tools.hyphen = function (name) {
-        return name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-    };
-    Tools.info = function (message) {
-        console.log(chalk_1.blue(message));
-    };
-    Tools.replace = function (filename, args, callback) {
-        fs.readFile(filename, 'utf8', function (err, data) {
-            if (err) {
-                return Tools.error(err);
-            }
-            args.forEach(function (arg) {
-                // console.log(arg[0].test(data));
-                data = data.replace(arg[0], arg[1]);
-            });
-            fs.writeFile(filename, data, 'utf8', function (err) {
-                if (err) {
-                    return Tools.error(err);
-                }
-                callback && callback();
-            });
-        });
-    };
-    return Tools;
-}());
-exports.Tools = Tools;
+function createDir(dirname) {
+    fs.mkdirSync(dirname);
+}
+exports.createDir = createDir;
+function deleteDir(dirname, callback) {
+    rimraf(dirname, callback);
+}
+exports.deleteDir = deleteDir;
+function writeFile(filename, data) {
+    fs.writeFileSync(filename, data, 'utf8');
+}
+exports.writeFile = writeFile;
+function appendFile(filename, data) {
+    fs.appendFileSync(filename, data, 'utf8');
+}
+exports.appendFile = appendFile;
+function deleteFile(filename) {
+    fs.unlinkSync(filename);
+}
+exports.deleteFile = deleteFile;
+function removeLine(filename, line) {
+    replace(filename, [[new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), '']]);
+}
+exports.removeLine = removeLine;
+function removeLines(filename, lines) {
+    replace(filename, lines.map(function (line) { return [new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), '']; }));
+}
+exports.removeLines = removeLines;
+function addBefore(filename, anchor, line) {
+    replace(filename, [
+        [new RegExp(line.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), ''],
+        [anchor, line + '\n' + anchor]
+    ]);
+}
+exports.addBefore = addBefore;
+function addBeforeMulti(filename, tags) {
+    replace(filename, tags.map(function (tag) { return [
+        [new RegExp(tag[1].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '\\r?\\n', 'g'), ''],
+        [tag[0], tag[1] + '\n' + tag[0]]
+    ]; }).reduce(function (tags, tag) { return [].concat(tags, tag); }));
+}
+exports.addBeforeMulti = addBeforeMulti;
+function error(err) {
+    console.log(chalk_1.red(err.message || err));
+}
+exports.error = error;
+function hyphen(name) {
+    return name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+exports.hyphen = hyphen;
+function info(message) {
+    console.log(chalk_1.blue(message));
+}
+exports.info = info;
+function replace(filename, args) {
+    var data = fs.readFileSync(filename, 'utf8');
+    args.forEach(function (arg) {
+        // console.log(arg[0].test(data));
+        data = data.replace(arg[0], arg[1]);
+    });
+    fs.writeFileSync(filename, data, 'utf8');
+}
+exports.replace = replace;
+function tpl(template, data) {
+    // console.log(data);
+    // console.log(template);
+    // console.log(format(template, data));
+    return format(template, data);
+}
+exports.tpl = tpl;
+function tplFile(filename, data) {
+    return tpl(fs.readFileSync(path_1.join(__dirname, '../src/templates/' + filename), 'utf8'), data);
+}
+exports.tplFile = tplFile;
 //# sourceMappingURL=tools.js.map

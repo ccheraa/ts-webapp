@@ -1,8 +1,10 @@
 #! /usr/bin/env node
+declare var process: any;
 import { Class } from './class';
 import { Component } from './component';
 import { Service } from './service';
-import { Tools } from './tools';
+import { Model } from './model';
+import { error } from './tools';
 function tools() {
   if (process.argv.length > 2) {
     let object = process.argv[2];
@@ -16,13 +18,15 @@ function tools() {
       case 'component': fn = Component.do(action); break;
       case 's':
       case 'service': fn = Service.do(action); break;
-      default: Tools.error('unkown object "' + object + '"\navailable objects: class (l), component (c), Service (s)');
+      case 'm':
+      case 'model': fn = Model.do(action); break;
+      default: error('unkown object "' + object + '"\navailable objects: class (l), component (c), service (s), model (m)');
     }
     if (fn) {
       fn(args);
     }
   } else {
-    Tools.error('use ts-webapp <object> <action> <parameters...>');
+    error('use ts-webapp <object> <action> <parameters...>');
   }
 }
 tools();

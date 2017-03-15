@@ -3,6 +3,7 @@
 var class_1 = require("./class");
 var component_1 = require("./component");
 var service_1 = require("./service");
+var model_1 = require("./model");
 var tools_1 = require("./tools");
 function tools() {
     if (process.argv.length > 2) {
@@ -23,14 +24,18 @@ function tools() {
             case 'service':
                 fn = service_1.Service.do(action);
                 break;
-            default: tools_1.Tools.error('unkown object "' + object + '"\navailable objects: class (l), component (c), Service (s)');
+            case 'm':
+            case 'model':
+                fn = model_1.Model.do(action);
+                break;
+            default: tools_1.error('unkown object "' + object + '"\navailable objects: class (l), component (c), service (s), model (m)');
         }
         if (fn) {
             fn(args);
         }
     }
     else {
-        tools_1.Tools.error('use ts-webapp <object> <action> <parameters...>');
+        tools_1.error('use ts-webapp <object> <action> <parameters...>');
     }
 }
 tools();

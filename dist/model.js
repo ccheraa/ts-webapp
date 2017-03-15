@@ -1,5 +1,5 @@
 "use strict";
-var dir = 'src/common/class/';
+var dir = 'src/client/app/service/';
 var tools_1 = require("./tools");
 var vars = { dir: dir };
 var Tool = (function () {
@@ -27,7 +27,7 @@ var Tool = (function () {
             return true;
         }
         else {
-            tools_1.error('use ts-webapp class <' + Tool.actions().join('/') + '> <class name> <filename?>');
+            tools_1.error('use ts-webapp service <' + Tool.actions().join('/') + '> <service name> <filename?>');
             return false;
         }
     };
@@ -35,17 +35,25 @@ var Tool = (function () {
         if (!Tool.init(args)) {
             return;
         }
-        tools_1.writeFile(tools_1.tpl('{dir}/{name}.class.ts', vars), tools_1.tplFile('class.ts', vars));
-        tools_1.addBefore(tools_1.tpl('{dir}/index.ts', vars), '/// exports', tools_1.tpl('export * from \'./{name}.class\';', vars));
+        tools_1.writeFile(tools_1.tpl('{dir}/{name}.service.ts', vars), tools_1.tplFile('service.ts', vars));
+        tools_1.addBeforeMulti(tools_1.tpl('{dir}/index.ts', vars), [
+            ['/// exports', tools_1.tpl('export * from \'./{name}.service\';', vars)],
+            ['/// imports', tools_1.tpl('import { {Name}Service } from \'./{name}.service\';', vars)],
+            ['/// services', tools_1.tpl('  {Name}Service,', vars)]
+        ]);
     };
     Tool.remove = function (args) {
         if (!Tool.init(args)) {
             return;
         }
-        tools_1.deleteFile(tools_1.tpl('{dir}/{name}.class.ts', vars));
-        tools_1.removeLine(tools_1.tpl('{dir}/index.ts', vars), tools_1.tpl('export * from \'./{name}.class\';', vars));
+        tools_1.deleteFile(tools_1.tpl('{dir}/{name}.service.ts', vars));
+        tools_1.removeLines(tools_1.tpl('{dir}/index.ts', vars), [
+            tools_1.tpl('export * from \'./{name}.service\';', vars),
+            tools_1.tpl('import { {Name}Service } from \'./{name}.service\';', vars),
+            tools_1.tpl('  {Name}Service,', vars)
+        ]);
     };
     return Tool;
 }());
-exports.Class = Tool;
-//# sourceMappingURL=class.js.map
+exports.Model = Tool;
+//# sourceMappingURL=model.js.map

@@ -5,4 +5,4 @@ declare class Tool {
     static create(args: string[]): void;
     static remove(args: string[]): void;
 }
-export { Tool as Class };
+export { Tool as Model };

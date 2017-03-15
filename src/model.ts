@@ -47,4 +47,4 @@ class Tool {
     ]);
   }
 }
-export { Tool as Service }
+export { Tool as Model }

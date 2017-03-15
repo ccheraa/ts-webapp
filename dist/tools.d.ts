@@ -1,16 +1,16 @@
 /// <reference types="node" />
-export declare class Tools {
-    static createDir(dirname: string, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static deleteDir(dirname: string, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static deleteFile(filename: string, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static removeLine(filename: string, line: string, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static removeLines(filename: string, lines: string[], callback?: (err: NodeJS.ErrnoException) => void): void;
-    static addBefore(filename: string, anchor: string, line: string, callback?: (err: NodeJS.ErrnoException) => void): void;
-    static addBeforeMulti(filename: string, tags: string[][], callback?: (err: NodeJS.ErrnoException) => void): void;
-    static error(err: NodeJS.ErrnoException | string): void;
-    static hyphen(name: string): string;
-    static info(message: string): void;
-    static replace(filename: any, args: any, callback: any): void;
-}
+export declare function createDir(dirname: string): void;
+export declare function deleteDir(dirname: string, callback?: (err: NodeJS.ErrnoException) => void): void;
+export declare function writeFile(filename: string, data: any): void;
+export declare function appendFile(filename: string, data: any): void;
+export declare function deleteFile(filename: string): void;
+export declare function removeLine(filename: string, line: string): void;
+export declare function removeLines(filename: string, lines: string[]): void;
+export declare function addBefore(filename: string, anchor: string, line: string): void;
+export declare function addBeforeMulti(filename: string, tags: string[][]): void;
+export declare function error(err: NodeJS.ErrnoException | string): void;
+export declare function hyphen(name: string): string;
+export declare function info(message: string): void;
+export declare function replace(filename: any, args: any): void;
+export declare function tpl(template: string, data: any): string;
+export declare function tplFile(filename: string, data: any): string;

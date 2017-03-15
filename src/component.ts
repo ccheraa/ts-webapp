@@ -1,9 +1,8 @@
 let dir = 'src/client/app/component/';
-import { Tools } from './tools';
+import { error, hyphen, createDir, writeFile, tplFile, tpl, addBeforeMulti, deleteDir, removeLines } from './tools';
 
+let vars: any = { dir }
 class Tool {
-  static _name: string;
-  static _Name: string;
   static actions(short = true): string[] {
     return short ? ['create (c)', 'remove (r)'] : ['create', 'remove'];
   }
@@ -13,68 +12,51 @@ class Tool {
       case 'create': return Tool.create;
       case 'r':
       case 'remove': return Tool.remove;
-      default: Tools.error((action ? 'unkown action "' + action + '"' : 'must define an action') + '\navailable actions: ' + Tool.actions().join(', ')); return;
+      default: error((action ? 'unkown action "' + action + '"' : 'must define an action') + '\navailable actions: ' + Tool.actions().join(', ')); return;
     }
   }
   static init(args: string[]) {
     if (args.length) {
-      Tool._Name = args[0];
-      Tool._name = args[1] || Tools.hyphen(args[0]);
+      vars.Name = args[0];
+      vars.name = args[1] || hyphen(args[0]);
       return true;
     } else {
-      Tools.error('use ts-webapp component <' + Tool.actions().join('/') + '> <component name> <filename?>');
+      error('use ts-webapp component <' + Tool.actions().join('/') + '> <component name> <filename?>');
       return false;
     }
   }
   public static create(args: string[]) {
     if (!Tool.init(args)) { return; }
-    let fileTS =
-`import { Component, OnInit } from '@angular/core';
-import { NavigatorService } from '../../service';
-
-@Component({
-  selector: 'app-${Tool._name}',
-  templateUrl: './${Tool._name}.component.html',
-  styleUrls: ['./${Tool._name}.component.scss']
-})
-export class ${Tool._Name}Component implements OnInit {
-  constructor(private nav: NavigatorService) { }
-  ngOnInit() {
-    this.nav.title('${Tool._Name}');
-    this.nav.home(false);
-    this.nav.menu([]);
-  }
-}
-`;
-    let fileHTML = `<p>${Tool._Name} works!</p>`;
-    Tools.createDir(dir + '/' + Tool._name, (err) => {
-      if (err) { return Tools.error(err); };
-      Tools.writeFile(dir + '/' + Tool._name + '/' + Tool._name + '.component.ts', fileTS, function (err) {
-        if (err) { return Tools.error(err); };
-        Tools.writeFile(dir + '/' + Tool._name + '/' + Tool._name + '.component.html', fileHTML, function (err) {
-          if (err) { return Tools.error(err); };
-          Tools.writeFile(dir + '/' + Tool._name + '/' + Tool._name + '.component.scss', '', function (err) {
-            if (err) { return Tools.error(err); };
-            Tools.addBeforeMulti(dir + 'index.ts', [
-              ['/// exports', 'export * from \'./' + Tool._name + '/' + Tool._name + '.component\';'],
-              ['/// imports', 'import { ' + Tool._Name + 'Component } from \'./' + Tool._name + '/' + Tool._name + '.component\';'],
-              ['/// components', '  ' + Tool._Name + 'Component,']
-            ], () => {});
-          });
-        });
-      });
-    });
+    createDir(tpl('{dir}/{name}', vars));
+    writeFile(
+      tpl('{dir}/{name}/{name}.component.ts', vars),
+      tplFile('component.ts', vars)
+    );
+    writeFile(
+      tpl('{dir}/{name}/{name}.component.html', vars),
+      tplFile('component.html', vars)
+    );
+    writeFile(
+      tpl('{dir}/{name}/{name}.component.scss', vars),
+      tplFile('component.scss', vars)
+    );
+    addBeforeMulti(tpl('{dir}/index.ts', vars), [
+      ['/// exports', 
+      tpl('export * from \'./{name}/{name}.component\';', vars)],
+      ['/// imports', tpl('import { {Name}Component } from \'./{name}/{name}.component\';', vars)],
+      ['/// components', tpl('  {Name}Component,', vars)]
+    ]);
   }
   public static remove(args: string[]) {
     if (!Tool.init(args)) { return; }
-    Tools.deleteDir(dir + '/' + Tool._name, (err) => {
-      if (err) { return Tools.error(err); };
-      Tools.removeLines(dir + 'index.ts', [
-        'export * from \'./' + Tool._name + '/' + Tool._name + '.component\';',
-        'import { ' + Tool._Name + 'Component } from \'./' + Tool._name + '/' + Tool._name + '.component\';',
-        '  ' + Tool._Name + 'Component,'
+    deleteDir(dir + '/' + vars.name, (err) => {
+      if (err) { return error(err); };
+      removeLines(tpl('{dir}/index.ts', vars), [
+        tpl('export * from \'./{name}/{name}.component\';', vars),
+        tpl('import { {Name}Component } from \'./{name}/{name}.component\';', vars),
+        tpl('  {Name}Component,', vars)
       ]);
     });
   }
 }
-export { Tool as Component}
+export { Tool as Component }

@@ -8,10 +8,15 @@
 		"experimentalDecorators": true,
 		"inlineSources": true,
 		"outDir": "dist",
-		"declaration": true
+		"declaration": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
 	},
 	"exclude": [
 		"node_modules",
+		"src/templates",
+		"templates",
 		".vscode",
 		"index.d.ts",
 		"dist"
