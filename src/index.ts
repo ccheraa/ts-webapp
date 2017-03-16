@@ -1,10 +1,10 @@
 #! /usr/bin/env node
-declare var process: any;
 import { Class } from './class';
 import { Component } from './component';
 import { Service } from './service';
 import { Model } from './model';
-import { error } from './tools';
+import { error, tpl } from './tools';
+declare var process: any;
 function tools() {
   if (process.argv.length > 2) {
     let object = process.argv[2];
