@@ -20,10 +20,10 @@ class Tool {
       vars.Name = args[0];
       vars.name = args[1] || hyphen(args[0]);
       vars.index = tpl('{dir}/index.ts', vars);
-      vars.dir = tpl('{dir}/{name}/{name}.component.ts', vars);
-      vars.ts = tpl('{dir}/{name}/{name}.component.ts', vars);
-      vars.html = tpl('{dir}/{name}/{name}.component.html', vars);
-      vars.scss = tpl('{dir}/{name}/{name}.component.scss', vars);
+      vars.dir = tpl('{dir}/{name}', vars);
+      vars.ts = tpl('{dir}/{name}.component.ts', vars);
+      vars.html = tpl('{dir}/{name}.component.html', vars);
+      vars.scss = tpl('{dir}/{name}.component.scss', vars);
       vars.exports = tpl('export * from \'./{name}/{name}.component\';', vars);
       vars.imports = tpl('import { {Name}Component } from \'./{name}/{name}.component\';', vars);
       vars.components = tpl('  {Name}Component,', vars);

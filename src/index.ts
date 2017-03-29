@@ -2,6 +2,7 @@
 import { Class } from './class';
 import { Component } from './component';
 import { Service } from './service';
+import { Directive } from './directive';
 import { Model } from './model';
 import { error, tpl } from './tools';
 declare var process: any;
@@ -20,7 +21,9 @@ function tools() {
       case 'service': fn = Service.do(action); break;
       case 'm':
       case 'model': fn = Model.do(action); break;
-      default: error('unkown object "' + object + '"\navailable objects: class (l), component (c), service (s), model (m)');
+      case 'd':
+      case 'directive': fn = Directive.do(action); break;
+      default: error('unkown object "' + object + '"\navailable objects: class (l), component (c), service (s), directive (d), model (m)');
     }
     if (fn) {
       fn(args);

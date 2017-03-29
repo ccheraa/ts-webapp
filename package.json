@@ -1,6 +1,6 @@
 {
   "name": "@ts-webapp/cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A full webapp with back and front end using typescript + Angular + Angular Material",
   "scripts": {
     "start": "ts-node src",
